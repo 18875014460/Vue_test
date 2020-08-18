@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script src="./lib/vue.js"></script>
+  <style>
+    .inner {
+      height: 120px;
+      background-color: aquamarine;
+    }
+
+    .outer {
+      padding: 20px;
+      background-color: red;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <!-- .stop -->
+      <!--<div id="app" class="inner" @click="clickDiv">
+        <input type="button" value="撮它"  @click.stop="clickBtn " />
+      </div>-->
+
+      <!-- .prevent  -->
+      <!-- <a href="http://www.baidu.com" @click="clickLine">去百度吧</a> -->
+
+      <!-- .capture -->
+      <!-- <div id="app" class="inner" @click.capture="clickDiv">
+        <input type="button" value="撮它" @click="clickBtn " />
+      </div> -->
+
+      <!-- .self -->
+      <!-- <div id="app" class="inner" @click.self="clickDiv">
+        <input type="button" value="撮它" @click="clickBtn " />
+      </div> -->
+
+      <!-- .once -->
+      <!-- <div id="app" class="inner" @click.once="clickDiv">
+        <input type="button" value="撮它" @click="clickBtn " />
+      </div> -->
+
+      <!-- .stop和.self区别 -->
+      <div class="outer" @click.stop="clickOuter">
+        <div  class="inner" @click.self="clickDiv">
+          <input type="button" value="撮它" @click="clickBtn " />
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {},
+      methods: {
+        clickDiv() {
+          console.log("触发了div");
+        },
+        clickBtn() {
+          console.log("触发了btn");
+        },
+        clickLine() {
+          console.log("触发了链接");
+        },
+        clickOuter() {
+          console.log("触发了 outer div");
+        }
+      },
+    });
+  </script>
+</html>

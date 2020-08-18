@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script src="./lib/vue.js"></script>
+  <body>
+    <div id="app">
+      <p>{{msg}}</p>
+      <input type="text" :value="msg" style="width: 90%;" />
+      <br />
+      <!-- +'我就是v-model,奈我何？ -->
+      <input type="text" v-model="msg" style="width: 90%;" />
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <!-- 运用v-model实现简单的计算器 -->
+      <h3>简易计算器</h3>
+      <input type="text" v-model="n1" />
+      <select v-model="mark">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+      </select>
+      <input type="text" v-model="n2" />
+      <input type="button" value="=" @click="calc" />
+      <input type="text" v-model="result" disabled="true" />
+    </div>
+  </body>
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        msg: "对于，v-model的期待！",
+        n1: 0,
+        n2: 0,
+        mark: "+",
+        result: 0,
+      },
+      methods: {
+        calc() {
+          if (parseFloat(this.n2) == 0 && this.mark == "/") {
+            return (this.result = "被除数不能为0");
+          }
+          //   switch (this.mark) {
+          //     case "+":
+          //       this.result = parseFloat(this.n1) + parseFloat(this.n2);
+          //       break;
+          //     case "-":
+          //       this.result = parseFloat(this.n1) - parseFloat(this.n2);
+          //       break;
+          //     case "*":
+          //       this.result = parseFloat(this.n1) * parseFloat(this.n2);
+          //       break;
+          //     default:
+          //       this.result = parseFloat(this.n1) / parseFloat(this.n2);
+          //       break;
+          //   }
+
+          // 注意：是投机取巧的方法，正式开发中尽量少用
+          var resultStr =
+            "parseFloat(this.n1)" + this.mark + "parseFloat(this.n2)";
+          this.result = eval(resultStr);
+        },
+      },
+    });
+  </script>
+</html>

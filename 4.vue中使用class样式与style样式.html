@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .red {
+      color: red;
+    }
+    .thin {
+      font-weight: 300;
+    }
+    .italic {
+      font-style: italic;
+    }
+    .active {
+      letter-spacing: 0.5em;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <!-- 一般 -->
+      <h1 class="red thin">我是h1我很大的哟。。class。。一般</h1>
+
+      <!-- 数组 -->
+      <h1 :class="['red','italic']">我是h1我很大的哟。。class。数组</h1>
+
+      <!-- 三元 -->
+      <h1 :class="['thin',flage?'italic':'']">
+        我是h1我很大的哟。。class。三元
+      </h1>
+
+      <!-- 数组镶嵌对象 -->
+      <h1 :class="['thin',{'italic':flage}]">
+        我是h1我很大的哟。。class。数组镶嵌对象
+      </h1>
+
+      <!-- 直接使用对象 -->
+      <h1 :class="{red:true,active:false}">
+        我是h1我很大的哟。。class。直接使用对象
+      </h1>
+
+      <!-- 直接使用对象 -->
+      <h1 :class="classObj">
+        我是h1我很大的哟。。class。直接使用对象-在data中取
+      </h1>
+
+      <!-- style一般 -->
+      <h1 :style="{color:'blue','font-width':40}">
+        我是h1我很大的哟。。style。直接绑定
+      </h1>
+
+      <!-- style一般 -->
+      <h1 :style="styleObj">
+        我是h1我很大的哟。。style。直接绑定
+      </h1>
+    </div>
+  </body>
+  <script src="./lib/vue.js"></script>
+
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        flage: false,
+        classObj: { red: true, active: true },
+        styleObj:{color:'yellow','font-width':40}
+      },
+      methods: {},
+    });
+  </script>
+</html>
