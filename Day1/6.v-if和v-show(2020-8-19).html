@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <p :style="{color:'red'}">v-if和v-show使用==></p>
+      <br />
+
+      <!-- <input type="button" value="按钮" @click="taggle" /> -->
+      <input type="button" value="隐藏" @click="flag = !flag" />
+      <p v-if="flag">v-if使用特点：每次删除或创建；适用于元素很少显示或切换的情况</p>
+
+      <p v-show="flag">v-show使用特点：切换元素style的display:none样式；适用于元素频繁切换显示的情况</p>
+    </div>
+  </body>
+  <script src="../lib/vue.js"></script>
+
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        flag: true,
+      },
+      methods: {
+        // taggle() {
+        //   this.flag = !this.flag;
+        // },
+      },
+    });
+  </script>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 数字 -->
+      <p :style="{color:'red'}">数字循环==></p>
+      <p v-for="count in 5">第{{count}}次循环</p>
+      <br />
+      <br />
+
+      <!-- 数字 -->
+      <p :style="{color:'red'}">带索引数字循环==></p>
+      <p v-for="(count,index) in 5">
+        第{{count}}次循环-----索引值：{{index}}
+      </p>
+      <br />
+      <br />
+
+      <!-- 迭代 -->
+      <p :style="{color:'red'}">普通循环</p>
+      <p v-for="(item,index) in list">
+        值：{{item}}-----索引值：{{index}}
+      </p>
+      <br />
+      <br />
+
+      <!-- 对象数组循环 -->
+      <p :style="{color:'red'}">对象数组循环</p>
+      <ul v-for="(obj,index) in user">
+        <li>id:{{obj.id}};name:{{obj.name}};索引：{{index}}</li>
+      </ul>
+      <br />
+      <br />
+
+      <!-- 对象循环 -->
+      <p :style="{color:'red'}">对象循环</p>
+      <ul v-for="(value,key,index) in user1">
+        <li>值:{{value}};键:{{key}};索引：{{index}}</li>
+      </ul>
+      <br />
+      <br />
+
+      <!-- v-for中key属性的使用 -->
+      <p :style="{color:'red'}">v-for中key属性的使用</p>
+      <div>
+        <label>Id：<input type="text" v-model="id" /></label>
+        <label>Name:<input type="text" v-model="name" /></label>
+        <input type="button" value="添加" @click="add" />
+      </div>
+      <p v-for="item in history" :key="item.id">
+        <input type="checkbox" />{{item.id}}---{{item.name}}
+      </p>
+    </div>
+  </body>
+  <script src="../lib/vue.js"></script>
+
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        id: "",
+        name: "",
+        list: [1, 23, 4, 5],
+        user: [
+          { id: 1, name: "zs1" },
+          { id: 2, name: "zs2" },
+          { id: 3, name: "zs3" },
+          { id: 4, name: "zs4" },
+        ],
+        user1: {
+          id: 1,
+          name: "zs1",
+          address: "重庆",
+        },
+        history: [
+          { id: 1, name: "杨幂" },
+          { id: 2, name: "李易峰" },
+          { id: 3, name: "李佳儿" },
+          { id: 4, name: "毛晓彤" },
+        ],
+      },
+      methods: {
+        add() {
+            this.history.push({ id: this.id, name: this.name });
+
+          // 头部插入
+        //   this.history.unshift({ id: this.id, name: this.name });
+        },
+      },
+    });
+  </script>
+</html>
