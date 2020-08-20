@@ -3,38 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>车辆品牌</title>
+    <link rel="icon" href="../lib/car.gif" />
   </head>
   <body>
     <div id="app">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <h3 class="panel-title">添加品牌</h3>
+          <h4 class="panel-title">添加品牌</h4>
         </div>
+        <br />
+
         <div class="panel-body form-inline">
           <label
             >Id：<input type="text" class="form-control" v-model="id"
           /></label>
           <label
-            >名称： <input type="text" class="form-control" v-model="name"
-          /></label>
-          <label
-            >时间：<input type="text" class="form-control" v-model="time"
-          /></label>
+            >名称：
+            <input
+              type="text"
+              class="form-control"
+              v-model="name"
+              @keyup.enter="add"
+            />
+          </label>
+          <!-- <label>时间：
+              <input type="time" class="form-control" v-model="time"/>
+            </label>  -->
           <input
             type="button"
             value="添加"
             class="btn btn-primary"
-            @click="add(id,name)"
+            @click="add"
           />&nbsp;
           <input
             type="button"
             value="查询"
             class="btn btn-primary"
-            @click="query"
+            @click="query(id,name,time)"
+          />&nbsp;
+          <input
+            type="button"
+            value="重置"
+            class="btn btn-primary"
+            @click="clear"
           />
         </div>
       </div>
+      <br />
 
       <table class="table table-bordered table-hover table-striped">
         <thead>
@@ -47,11 +63,13 @@
         </thead>
         <tbody>
           <tr v-for="item in list" :key="item.id">
+            <!-- <tr v-for="item in query(id,name,time)" :key="item.id"> -->
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
-            <td>{{item.time}}</td>
+            <!-- 过滤器只能在v-bind和mustachc中使用  用于文本格式化 -->
+            <td>{{item.time | dateFormat('yyyy-MM-DD')}}</td>
             <td>
-              <a href="">删除</a>
+              <a href="" @click.prevent="del(item.id)">删除</a>
             </td>
           </tr>
         </tbody>
@@ -59,11 +77,41 @@
       <p :style="{color:'red'}">列表实例</p>
       <br />
     </div>
+
+    <div id="app2">
+      {{dt | dateFormat('') }}
+    </div>
   </body>
   <script src="../lib/vue.js"></script>
   <link rel="styleSheet" href="../lib/bootstrap.css" />
 
+  <!-- --------------------------------------------js---------------------------------------------- -->
   <script>
+    //时间格式化公共方法
+    function FormDataResult(dataStr, pattern = "") {
+      console.log(dataStr + " ;" + pattern);
+
+      //padStart填充字符(maxLength,String=' ')
+      var dt = new Date(dataStr);
+      var y = dt.getFullYear();
+      var m = (dt.getMonth() + 1).toString().padStart(2, "0");
+      var d = dt.getDate().toString().padStart(2, "0");
+      if (pattern && pattern.toLowerCase() === "yyyy-mm-dd") {
+        // return y + "-" + m + "-" + d;
+        return `${y}-${m}-${d}`;
+      } else {
+        var hh = dt.getHours().toString().padStart(2, "0");
+        var mm = dt.getMinutes().toString().padStart(2, "0");
+        var ss = dt.getSeconds().toString().padStart(2, "0");
+        // return y + "-" + m + "-" + d + " " + hh + ":" + mm + ":" + ss;
+        return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+      }
+    }
+
+    Vue.filter("dateFormat", function (dataStr, pattern) {
+      return FormDataResult(dataStr, pattern);
+    });
+
     var vm = new Vue({
       el: "#app",
       data: {
@@ -82,7 +130,58 @@
           console.log(car);
           this.list.push(car);
         },
-        query() {},
+        del(id) {
+          this.list.some((item, i) => {
+            if (item.id == id) {
+              this.list.splice(i, 1);
+              return true;
+            }
+          });
+        },
+        query(id, name, time) {
+          console.log(" id:" + id + " name:" + name + " time:" + time);
+          //注意：forEach filter findIndex some 属于数组新方法；会遍历数组中每一个元素，来进行相关操作
+
+          // forEach进行操作
+          // var newList = [];
+          // this.list.forEach((item) => {
+          //   if (item.name.indexOf(name) != -1) {
+          //     newList.push(item);
+          //   }
+          // });
+          // return newList;
+
+          // filter
+          //   return this.list.filter((item) => {
+          //     if (item.name.includes(name)) {
+          //       return item;
+          //     }
+          //   });
+
+          var result = this.list.filter((item) => {
+            if (item.name.includes(name)) {
+              return item;
+            }
+          });
+          console.log(result);
+          return (this.list = result);
+        },
+        clear() {
+          this.id = null;
+          this.name = null;
+          this.time = null;
+        },
+      },
+    });
+
+    var vm2 = new Vue({
+      el: "#app2",
+      data: { dt: new Date() },
+      methods: {},
+      filters: {
+        dateFormat: function (dataStr, pattern) {
+          return FormDataResult(dataStr, pattern);
+        },
       },
     });
   </script>
