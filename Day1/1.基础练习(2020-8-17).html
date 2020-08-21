@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,9 @@
 </head>
 
 <style>
-[v-cloak]{
-    display: none;
-}
+    [v-cloak] {
+        display: none;
+    }
 </style>
 
 <body>
@@ -22,122 +23,118 @@
 
 
         <div v-html="msg3"></div>
-        
+
         <!-- 单个 -->
-        <input type="button" value="按钮(点击)" :title="mytitle+'122'"  @click="show"/>
+        <input type="button" value="按钮(点击)" :title="mytitle+'122'" @click="show" />
 
-        <input type="button" value="按钮(鼠标移出)" :title="mytitle+'122'"  @mouseout="show1"/>
+        <input type="button" value="按钮(鼠标移出)" :title="mytitle+'122'" @mouseout="show1" />
 
-        <input type="button" value="按钮(鼠标移动)" :title="mytitle+'122'"   v-on:mouseover="show2"/>
+        <input type="button" value="按钮(鼠标移动)" :title="mytitle+'122'" v-on:mouseover="show2" />
 
-        <input type="button" value="按钮(按下鼠标触发)" :title="mytitle+'122'"   v-on:mousedown="show3"/>
+        <input type="button" value="按钮(按下鼠标触发)" :title="mytitle+'122'" v-on:mousedown="show3" />
 
-        <br/>
-        <br/>
-        <br/>
+        <br />
+        <br />
+        <br />
 
         <!-- 多个 -->
         <!-- <input type="button" value="按钮" :title="mytitle+'122'"  v-on="{mouseover:show1,mouseno:show2,click:show}"/> -->
 
         <!-- <input type="button" value="按钮" v-bind:title="mytitle"/> -->
 
-<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<!-- 走马灯 -->
-<p>-----------------------------走马灯-------------------------------</p>
+        <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+        <!-- 走马灯 -->
+        <p>-----------------------------走马灯-------------------------------</p>
 
-<input type="text" value="500" ref="intervalTimeValue"/>
-<input type="button" value="定时器时间修改" @click="interval_time"/>
-<br/>
+        <input type="text" value="500" ref="intervalTimeValue" />
+        <input type="button" value="定时器时间修改" @click="interval_time" />
+        <br />
 
-<input type="button" value="跑起来" @click="go"/>
-<input type="button" value="停下" @click="stop"/>
+        <input type="button" value="跑起来" @click="go" />
+        <input type="button" value="停下" @click="stop" />
 
-<h3>{{msg_marquee}}</h3>
-
-
+        <h3>{{msg_marquee}}</h3>
 
 
-        </div>
-    
+
+
+    </div>
+
 </body>
 
-<script src="../lib/vue.js"></script>
+<script src="main.js"></script>
 
 <script>
-var vm=new Vue({
-  el:'#app',
-  data:{
- 
-    // =====基本
-      msg1:"v-cloak的我",
-      msg2:"v-text的我",
-      msg3:"<h1>带有标签的我插入到div中</h1>",
-      mytitle:"强扭的瓜不甜",
+    var vm = new Vue({
+        el: '#app',
+        data: {
 
-      // =====走马灯
-      msg_marquee:"走马灯，哒哒哒哒~ ~ ~",
-      // 定时器id
-      intervalId:null,
-      intervalTime:500
+            // =====基本
+            msg1: "v-cloak的我",
+            msg2: "v-text的我",
+            msg3: "<h1>带有标签的我插入到div中</h1>",
+            mytitle: "强扭的瓜不甜",
 
-},
-methods:{
-     // =====基本
-    show(){
-        alert("点击事件");
-    },
-    show1(){
-        alert("鼠标移出");
-    },
-    show2(){
-        alert("鼠标移动");
-    },
-    show3:function(){
-        alert("按下鼠标触发");
-    },
+            // =====走马灯
+            msg_marquee: "走马灯，哒哒哒哒~ ~ ~",
+            // 定时器id
+            intervalId: null,
+            intervalTime: 500
 
-    // =====走马灯
-    // go:function(){
-        go(){
-            // console.log(this.msg_marquee)
-            // var start=this.msg_marquee.substring(0,1)  
-            //     var end=this.msg_marquee.substring(1)
-            //     this.msg_marquee=end+start
+        },
+        methods: {
+            // =====基本
+            show() {
+                alert("点击事件");
+            },
+            show1() {
+                alert("鼠标移出");
+            },
+            show2() {
+                alert("鼠标移动");
+            },
+            show3: function () {
+                alert("按下鼠标触发");
+            },
+
+            // =====走马灯
+            // go:function(){
+            go() {
+                // console.log(this.msg_marquee)
+                // var start=this.msg_marquee.substring(0,1)  
+                //     var end=this.msg_marquee.substring(1)
+                //     this.msg_marquee=end+start
 
 
-            // _this=this.msg_marquee
-            // setInterval( function() => {
+                // _this=this.msg_marquee
+                // setInterval( function() => {
 
                 //避免每次点击开始会越来越快
-            if(this.intervalId!=null)return;    
+                if (this.intervalId != null) return;
 
-            // 简化 
-            this.intervalId=setInterval(() => {
-                var start=this.msg_marquee.substring(0,1)  
-                var end=this.msg_marquee.substring(1)
-                this.msg_marquee=end+start
-                console.log(this.msg_marquee)
-            },this.intervalTime)
-      
-    },
-    stop(){
-      clearInterval(this.intervalId)
-      //清理定时器后重新复制null
-      // console.log(this.intervalId)
-     this.intervalId=null
-    },
-    interval_time(){
-        this.stop()
-     this.intervalTime=this.$refs.intervalTimeValue.value
-    }
-}
-})
+                // 简化 
+                this.intervalId = setInterval(() => {
+                    var start = this.msg_marquee.substring(0, 1)
+                    var end = this.msg_marquee.substring(1)
+                    this.msg_marquee = end + start
+                    console.log(this.msg_marquee)
+                }, this.intervalTime)
+
+            },
+            stop() {
+                clearInterval(this.intervalId)
+                //清理定时器后重新复制null
+                // console.log(this.intervalId)
+                this.intervalId = null
+            },
+            interval_time() {
+                this.stop()
+                this.intervalTime = this.$refs.intervalTimeValue.value
+            }
+        }
+    })
 
 
 </script>
+
 </html>
-
-
-
-
-

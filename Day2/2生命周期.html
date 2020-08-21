@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>生命周期函数</title>
+    <link rel="icon" href="../lib/img/ask.gif" />
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="修改" @click="msg='No'" />
+        <p id="pp">{{msg}}</p>
+        <br />
+        <h2>生命周期函数过程图：</h2>
+        <img src="https://cn.vuejs.org/images/lifecycle.png" />
+
+
+    </div>
+</body>
+<script src="main.js"></script>
+
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            msg: "我是msg数据"
+        },
+        methods: {
+            show() {
+                console.log("执行了show方法")
+            }
+        },
+        //第一个生命周期
+        beforeCreate() {
+            // console.log(".....初始化")
+        },
+        //第二个生命周期
+        created() {
+            // console.log("第二个生命周期----" + this.msg)
+            // this.show()
+        },
+        //第三个生命周期 模板已经在内存中编译完成，但是没有把模板渲染到页面中
+        beforeMount() {
+            // console.log(document.getElementById('pp').innerText)
+        },
+        //第四个生命周期 模板已经渲染好了
+        mounted() {
+            // console.log(document.getElementById('pp').innerText)
+        },
+
+        //==================================运行中的两个事件
+        //数据被更新 依然是页面上原来的数据 data里的数据是最新的
+        beforeUpdate() {
+            // console.log("------beforeUpdate---------界面元素数据" + document.getElementById('pp').innerText)
+            // console.log("-------beforeUpdate--------data数据被修改" + this.msg)
+        },
+        //是最新的数据
+        updated() {
+            console.log("------update---------界面元素数据" + document.getElementById('pp').innerText)
+            console.log("-------update--------data数据被修改" + this.msg)
+        }
+    });
+</script>
+
+</html>
