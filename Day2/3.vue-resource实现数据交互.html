@@ -4,20 +4,63 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>vue发起ajax请求示例</title>
     <link rel="icon" href="../lib/img/two_wind.gif" />
+    <script src="../lib/js/vue.js"></script>
+    <script src="../lib/js/vue-resource.js"></script>
 </head>
 
 <body>
-    <div id="app"></div>
+    <div id="app">
+        <input type="button" value="get请求" @click="getInfo" />
+        </br>
+        </br>
+        <input type="button" value="post请求" @click="postInfo" />
+        </br>
+        </br>
+        <input type="button" value="jsonp请求" @click="jsonpInfo" />
+
+    </div>
 </body>
-<script src="main.js"></script>
 
 <script>
     var vm = new Vue({
         el: "#app",
         data: {},
-        methods: {},
+        methods: {
+            getInfo() {
+                console.log("get请求")
+                this.$http.get('http://vue.studyit.io/api/getlunbo', { withCredentials: true, withCredentials: true }).then(
+                    function success(result) {
+                        console.log(result.data)
+                    },
+                    function fail(params) {
+                        console.log("fail")
+                    })
+            },
+            postInfo() {
+                console.log("post请求")
+                this.$http.post('http://vue.studyit.io/api/post', {}, { withCredentials: true, emulateJSON: true }).then(
+                    (params) => {
+                        console.log("----success")
+                    },
+                    (params) => {
+                        console.log("fail")
+                    })
+            },
+            jsonpInfo() {
+                console.log("jsonp请求")
+                this.$http.jsonp('http://vue.studyit.io/api/jsonp', {}, { emulateJSON: true }).then(
+                    function success(result) {
+                        console.log(result.data)
+                    },
+                    function fail(result) {
+                        console.log("fail")
+                        console.log(result.data)
+                    })
+            }
+        },
     });
 </script>
 
