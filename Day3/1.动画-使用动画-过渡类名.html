@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>动画-使用动画</title>
+    <link rel="icon" href="../lib/img/car.gif" />
+</head>
+
+<style>
+    .v-enter,
+    .v-enter-to {
+        opacity: 0;
+         transform: translateX(200px);
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+        transition: all 0.8s ease;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <input type="button" value="按钮" @click="flag=!flag" />
+        <!-- //内部元素实现动画 -->
+        <transition>
+            <h3 v-if="flag">我是H3，我最牛！</h3>
+        </transition>
+    </div>
+</body>
+<script src="../lib/js/vue.js"></script>
+
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            flag: false
+        },
+        methods: {
+
+        },
+    });
+</script>
+
+</html>

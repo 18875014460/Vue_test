@@ -118,6 +118,11 @@
         }
     })
 
+    //创建根目录
+    Vue.http.options.root='http://vue.studyit.io/api/';
+    // 全局配置
+    Vue.http.options.emulateJSON = true;
+
     var vm = new Vue({
         el: "#app",
         data: {
@@ -137,7 +142,7 @@
         methods: {
             getAllLists() {
                 //获取所有的数据
-                this.$http.get('http://vue.studyit.io/api/gitprodlist').then(result => {
+                this.$http.get('gitprodlist').then(result => {
                     var result = result.body;
                     if (result.status === 0) {
                         this.list = result.massage
