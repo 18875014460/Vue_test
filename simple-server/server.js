@@ -1,3 +1,7 @@
+//day2 5.客户端JSONP.html jsonp简易客户端
+
+
+
 var http = require('http');
 const urlModule = require('url');
 

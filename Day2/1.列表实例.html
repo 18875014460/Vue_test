@@ -63,6 +63,7 @@
     </div>
 </body>
 <script src="../lib/js/vue.js"></script>
+<script src="../lib/js/vue-resource.js"></script>
 <link rel="styleSheet" href="../lib/css/bootstrap.css" />
 
 <!-- --------------------------------------------js---------------------------------------------- -->
@@ -129,7 +130,23 @@
                 { id: 3, name: "法拉利", time: new Date() },
             ],
         },
+        created() {
+            //当vm示例的data methods初始化后，自动执行
+            this.getAllLists();
+        },
         methods: {
+            getAllLists() {
+                //获取所有的数据
+                this.$http.get('http://vue.studyit.io/api/gitprodlist').then(result => {
+                    var result = result.body;
+                    if (result.status === 0) {
+                        this.list = result.massage
+                    } else {
+                        alert('数据获取失败')
+                    }
+                })
+
+            },
             add() {
                 var car = { id: this.id, name: this.name, time: new Date() };
                 console.log(car);
