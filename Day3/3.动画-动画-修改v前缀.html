@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>动画-使用动画</title>
+    <link rel="icon" href="../lib/img/car.gif" />
+    <script src="../lib/js/vue.js"></script>
+
+    <style>
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            /* 平移 */
+            transform: translateX(150px);
+            /* 缩放 */
+            transform: scaleX(2);
+            /* 旋转 */
+            transform: rotateX(150);
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 0.8s ease;
+        }
+
+        /* 自定义1 */
+        .myTransition-enter,
+        .myTransition-leave-to {
+            opacity: 0;
+            transform: translateY(-200px);
+            /* transform: scaleY(2); */
+        }
+
+        .myTransition-enter-active,
+        .myTransition-leave-active {
+            transition: all 0.8s ease;
+        }
+
+        /* 自定义2 */
+        .flag3-enter,
+        .flag3-leave-to {
+            opacity: 0;
+            transform: translateZ(200px);
+        }
+
+        .flag3-enter-active,
+        .flag3-leave-active {
+            transition: all 0.8s ease;
+        }
+
+        /* 自定义3d */
+        .flag4-enter,
+        .flag4-leave-to {
+            opacity: 0;
+            transform: translate3d(120px, 130px, 2px);
+        }
+
+        .flag4-enter-active,
+        .flag4-leave-active {
+            transition: all 0.8s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="按钮-X" @click="flag=!flag" />
+        <!-- //内部元素实现动画 -->
+        <transition>
+            <h3 v-if="flag">我是H3，我最牛！X</h3>
+        </transition>
+
+        <hr>
+        <!-- 自定义 -->
+        <input type="button" value="按钮-Y" @click="flag2=!flag2" />
+        <!-- //内部元素实现动画 -->
+        <transition name="myTransition">
+            <h3 v-if="flag2">我是H3，我最牛！Y</h3>
+        </transition>
+
+        <hr>
+        <!-- 自定义 -->
+        <input type="button" value="按钮-Z" @click="flag3=!flag3" />
+        <!-- //内部元素实现动画 -->
+        <transition name="flag3">
+            <h3 v-if="flag3">我是flag3，我最牛！Z</h3>
+        </transition>
+
+        <hr>
+        <!-- 自定义 -->
+        <input type="button" value="按钮-3d" @click="flag4=!flag4" />
+        <!-- //内部元素实现动画 -->
+        <transition name="flag4">
+            <h3 v-if="flag4">我是flag4，我最牛！</h3>
+        </transition>
+    </div>
+</body>
+<script src="../lib/js/vue.js"></script>
+
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            flag: false,
+            flag2: false,
+            flag3: false,
+            flag4: false
+        },
+        methods: {
+
+        },
+    });
+</script>
+
+</html>
